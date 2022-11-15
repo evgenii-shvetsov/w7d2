@@ -17,7 +17,7 @@ class User < ApplicationRecord
     validates :session_token, presence: true, uniqueness: true
     validates :password, length: {minimum: 6}, allow_nil: true
 
-    before_validates :ensure_session_token
+    before_validation :ensure_session_token
 
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
@@ -47,9 +47,9 @@ class User < ApplicationRecord
     private
     
     def generate_unique_session_token
-        token = Secure_random::urlsafe_base64
-        while User.exists?(session_token: session_token)
-            token = Secure_random::urlsafe_base64
+        token = SecureRandom::urlsafe_base64
+        while User.exists?(session_token: token)
+            token = SecureRandom::urlsafe_base64
         end
         token
     end

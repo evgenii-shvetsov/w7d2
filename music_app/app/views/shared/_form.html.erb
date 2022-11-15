@@ -1,0 +1,24 @@
+
+<% action = (task == "signup" ? users_url : session_url) %>
+<% message = (task == "signup" ? "Sign Up!" : "Log In!") %>
+
+<form action="<%= action %>" method="POST">
+  
+    <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>"
+  >
+  
+  <label>Email
+    <input type="text" name="user[email]" id="user_username">
+  </label>
+  <br>
+
+  <label>Password
+  <input type="password" name="user[password]" id="user_password" >
+  </label>
+  <br>
+
+  <input type="submit" value="<%= message %>">
+</form>
